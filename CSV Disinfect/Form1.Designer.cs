@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.btnSelect = new System.Windows.Forms.Button();
             this.btnClean = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // btnSelect
@@ -41,6 +42,7 @@
             this.btnSelect.TabIndex = 0;
             this.btnSelect.Text = "Select File";
             this.btnSelect.UseVisualStyleBackColor = true;
+            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
             // btnClean
             // 
@@ -51,6 +53,10 @@
             this.btnClean.TabIndex = 1;
             this.btnClean.Text = "Clean File";
             this.btnClean.UseVisualStyleBackColor = true;
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form1
             // 
@@ -72,6 +78,7 @@
 
         private System.Windows.Forms.Button btnSelect;
         private System.Windows.Forms.Button btnClean;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
