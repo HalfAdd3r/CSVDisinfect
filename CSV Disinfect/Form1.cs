@@ -59,6 +59,7 @@ namespace CSV_Disinfect
             {
                 MessageBox.Show("value found");
                 TextReader reader = new StreamReader(strmFile);
+                while (strmFile.)
                 MessageBox.Show(reader.ReadLine());
                 //for (; ; )
                 //{
@@ -69,6 +70,8 @@ namespace CSV_Disinfect
                 //    s = "{" + s + "},";
                 //    writer.WriteLine(s);
                 //}
+
+                strmFile.Close();
             }
 
             //TextReader reader = new StreamReader("triangle.txt");
