@@ -53,6 +53,7 @@
             this.btnClean.TabIndex = 1;
             this.btnClean.Text = "Clean File";
             this.btnClean.UseVisualStyleBackColor = true;
+            this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
             // 
             // openFileDialog1
             // 

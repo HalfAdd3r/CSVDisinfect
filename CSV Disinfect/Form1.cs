@@ -8,12 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Text.RegularExpressions;
 
 
 namespace CSV_Disinfect
 {
     public partial class Form1 : Form
     {
+        private String strFileName;
+        private Stream strmInputFile;
+
+
         public Form1()
         {
             InitializeComponent();
@@ -24,6 +29,11 @@ namespace CSV_Disinfect
         {
             UseOpenDialog();
         }
+
+        private void btnClean_Click(object sender, EventArgs e)
+        {
+            CleanFile();
+        } 
 
 
         private void UseOpenDialog()
@@ -42,8 +52,11 @@ namespace CSV_Disinfect
             {
                 try
                 {
-                    readFile(openFileDialog1.OpenFile());
+                    strFileName = openFileDialog1.FileName;
+                    strmInputFile = openFileDialog1.OpenFile();
+                    btnClean.Enabled = true;
                 } // end Try
+                
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
@@ -53,39 +66,41 @@ namespace CSV_Disinfect
 
 
 
-        private void readFile(Stream strmFile)
+        private void CleanFile()
         {
-            if (strmFile != null) // not empty
+            string strLine;
+            string strNewFile;
+            Regex rgx;
+
+            // Create New Filename for writing
+            strNewFile = strFileName;
+            strNewFile = strNewFile.Insert(strNewFile.Length - 4, "_cleaned");
+            rgx = new Regex("[^\\w\\d, ]"); // Allow letters, numbers, comma, and spaces only
+
+            if (strmInputFile != null) // not empty
             {
-                MessageBox.Show("value found");
-                TextReader reader = new StreamReader(strmFile);
-                while (strmFile.)
-                MessageBox.Show(reader.ReadLine());
-                //for (; ; )
-                //{
-                //    string s = reader.ReadLine();
-                //    if (s == null)
-                //        break;
-                //    s = s.Replace(" ", ", ");
-                //    s = "{" + s + "},";
-                //    writer.WriteLine(s);
-                //}
+                TextReader reader = new StreamReader(strmInputFile);
+                TextWriter writer = new StreamWriter(strNewFile);
+                
+                // Main Working Loop
+                while ((strLine = reader.ReadLine()) != null)
+                {
+                    MessageBox.Show(strLine);
 
-                strmFile.Close();
-            }
+                    writer.WriteLine(rgx.Replace(strLine," "));
+                }
 
-            //TextReader reader = new StreamReader("triangle.txt");
-            //TextWriter writer = new StreamWriter("triangle2.txt");
-            //for (; ; )
-            //{
-            //    string s = reader.ReadLine();
-            //    if (s == null)
-            //        break;
-            //    s = s.Replace(" ", ", ");
-            //    s = "{" + s + "},";
-            //    writer.WriteLine(s);
-            //}
-        } // end readFile
+                // Cleanup
+                reader.Close();
+                writer.Close();
+                btnClean.Enabled = false;
+                strmInputFile = null;
+                strFileName = null;
+
+                // Exit Msg
+                MessageBox.Show("New File Generated");
+            } // end if
+        } // End Clean File
 
 
     } // End Form1
