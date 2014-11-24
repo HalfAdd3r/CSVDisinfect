@@ -85,8 +85,6 @@ namespace CSV_Disinfect
                 // Main Working Loop
                 while ((strLine = reader.ReadLine()) != null)
                 {
-                    MessageBox.Show(strLine);
-
                     writer.WriteLine(rgx.Replace(strLine," "));
                 }
 
